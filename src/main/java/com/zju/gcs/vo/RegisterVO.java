@@ -6,5 +6,5 @@ import lombok.Data;
 public class RegisterVO {
     private String username;
     private String password;
-    private Byte department;
+    private String department;
 }

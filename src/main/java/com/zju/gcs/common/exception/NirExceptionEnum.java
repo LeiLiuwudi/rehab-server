@@ -6,6 +6,7 @@ public enum NirExceptionEnum {
 
     NO_USER_FOUND("300", "用户名或密码错误"),
     USER_EXIST("301", "该用户名已存在"),
+    PATIENT_EXIST("301","该患者id已经存在"),
     USER_UNLOGIN("302", "用户尚未登录"),
 
     NO_DISEASE_FOUND("400", "该编号病种不存在"),

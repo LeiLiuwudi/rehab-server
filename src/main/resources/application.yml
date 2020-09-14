@@ -5,7 +5,7 @@ server:
 spring:
   datasource:
     name: test
-    url: jdbc:mysql://10.115.113.58:3306/spine_rehab
+    url: jdbc:mysql://10.115.113.58:3306/spine_rehab?useUnicode=true&characterEncoding=utf-8
     username: root
     password: lab205
     # 使用druid数据源
@@ -36,3 +36,7 @@ pagehelper:
   reasonable: true
   supportMethodsArguments: true
   params: count=countSql
+
+rehab:
+  file:
+    location: E:\java-web\infraFile

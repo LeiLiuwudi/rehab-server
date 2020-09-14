@@ -2,9 +2,8 @@ package com.zju.gcs.mapper;
 
 import com.zju.gcs.model.UserDO;
 import com.zju.gcs.model.UserDOExample;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface UserDOMapper {
     int countByExample(UserDOExample example);

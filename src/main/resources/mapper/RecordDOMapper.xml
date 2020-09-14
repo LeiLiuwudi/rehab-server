@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zju.gcs.mapper.RecordDOMapper" >
+  <resultMap id="BaseResultMap" type="com.zju.gcs.model.RecordDO" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="patient_id" property="patientId" jdbcType="INTEGER" />
+    <result column="chief" property="chief" jdbcType="VARCHAR" />
+    <result column="present_history" property="presentHistory" jdbcType="VARCHAR" />
+    <result column="past_history" property="pastHistory" jdbcType="VARCHAR" />
+    <result column="disease_id" property="diseaseId" jdbcType="INTEGER" />
+    <result column="infra_path" property="infraPath" jdbcType="VARCHAR" />
+    <result column="infra_desc" property="infraDesc" jdbcType="VARCHAR" />
+    <result column="infra_excp" property="infraExcp" jdbcType="VARCHAR" />
+    <result column="opinion" property="opinion" jdbcType="VARCHAR" />
+    <result column="treat" property="treat" jdbcType="VARCHAR" />
+    <result column="treat_detail" property="treatDetail" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, created_at, patient_id, chief, present_history, past_history, disease_id, infra_path, 
+    infra_desc, infra_excp, opinion, treat, treat_detail
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zju.gcs.model.RecordDOExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectHistoryRecords" resultMap="BaseResultMap" parameterType="com.zju.gcs.vo.HistoryRecordsVO" >
+    select id, created_at, patient_id, chief, present_history, past_history, disease_id, infra_path, infra_desc,
+        infra_excp, opinion, treat, treat_detail
+    from record
+    where patient_id = #{patientId,jdbcType = INTEGER}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from record
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zju.gcs.model.RecordDOExample" >
+    delete from record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zju.gcs.model.RecordDO" >
+    insert into record (id, created_at, patient_id, 
+      chief, present_history, past_history, 
+      disease_id, infra_path, infra_desc, 
+      infra_excp, opinion, treat, 
+      treat_detail)
+    values (#{id,jdbcType=INTEGER}, #{createdAt,jdbcType=TIMESTAMP}, #{patientId,jdbcType=INTEGER}, 
+      #{chief,jdbcType=VARCHAR}, #{presentHistory,jdbcType=VARCHAR}, #{pastHistory,jdbcType=VARCHAR}, 
+      #{diseaseId,jdbcType=INTEGER}, #{infraPath,jdbcType=VARCHAR}, #{infraDesc,jdbcType=VARCHAR}, 
+      #{infraExcp,jdbcType=VARCHAR}, #{opinion,jdbcType=VARCHAR}, #{treat,jdbcType=VARCHAR}, 
+      #{treatDetail,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zju.gcs.model.RecordDO" >
+    insert into record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        created_at,
+      </if>
+      <if test="patientId != null" >
+        patient_id,
+      </if>
+      <if test="chief != null" >
+        chief,
+      </if>
+      <if test="presentHistory != null" >
+        present_history,
+      </if>
+      <if test="pastHistory != null" >
+        past_history,
+      </if>
+      <if test="diseaseId != null" >
+        disease_id,
+      </if>
+      <if test="infraPath != null" >
+        infra_path,
+      </if>
+      <if test="infraDesc != null" >
+        infra_desc,
+      </if>
+      <if test="infraExcp != null" >
+        infra_excp,
+      </if>
+      <if test="opinion != null" >
+        opinion,
+      </if>
+      <if test="treat != null" >
+        treat,
+      </if>
+      <if test="treatDetail != null" >
+        treat_detail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="patientId != null" >
+        #{patientId,jdbcType=INTEGER},
+      </if>
+      <if test="chief != null" >
+        #{chief,jdbcType=VARCHAR},
+      </if>
+      <if test="presentHistory != null" >
+        #{presentHistory,jdbcType=VARCHAR},
+      </if>
+      <if test="pastHistory != null" >
+        #{pastHistory,jdbcType=VARCHAR},
+      </if>
+      <if test="diseaseId != null" >
+        #{diseaseId,jdbcType=INTEGER},
+      </if>
+      <if test="infraPath != null" >
+        #{infraPath,jdbcType=VARCHAR},
+      </if>
+      <if test="infraDesc != null" >
+        #{infraDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="infraExcp != null" >
+        #{infraExcp,jdbcType=VARCHAR},
+      </if>
+      <if test="opinion != null" >
+        #{opinion,jdbcType=VARCHAR},
+      </if>
+      <if test="treat != null" >
+        #{treat,jdbcType=VARCHAR},
+      </if>
+      <if test="treatDetail != null" >
+        #{treatDetail,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zju.gcs.model.RecordDOExample" resultType="java.lang.Integer" >
+    select count(*) from record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update record
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.createdAt != null" >
+        created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.patientId != null" >
+        patient_id = #{record.patientId,jdbcType=INTEGER},
+      </if>
+      <if test="record.chief != null" >
+        chief = #{record.chief,jdbcType=VARCHAR},
+      </if>
+      <if test="record.presentHistory != null" >
+        present_history = #{record.presentHistory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pastHistory != null" >
+        past_history = #{record.pastHistory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.diseaseId != null" >
+        disease_id = #{record.diseaseId,jdbcType=INTEGER},
+      </if>
+      <if test="record.infraPath != null" >
+        infra_path = #{record.infraPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.infraDesc != null" >
+        infra_desc = #{record.infraDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.infraExcp != null" >
+        infra_excp = #{record.infraExcp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.opinion != null" >
+        opinion = #{record.opinion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.treat != null" >
+        treat = #{record.treat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.treatDetail != null" >
+        treat_detail = #{record.treatDetail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update record
+    set id = #{record.id,jdbcType=INTEGER},
+      created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      patient_id = #{record.patientId,jdbcType=INTEGER},
+      chief = #{record.chief,jdbcType=VARCHAR},
+      present_history = #{record.presentHistory,jdbcType=VARCHAR},
+      past_history = #{record.pastHistory,jdbcType=VARCHAR},
+      disease_id = #{record.diseaseId,jdbcType=INTEGER},
+      infra_path = #{record.infraPath,jdbcType=VARCHAR},
+      infra_desc = #{record.infraDesc,jdbcType=VARCHAR},
+      infra_excp = #{record.infraExcp,jdbcType=VARCHAR},
+      opinion = #{record.opinion,jdbcType=VARCHAR},
+      treat = #{record.treat,jdbcType=VARCHAR},
+      treat_detail = #{record.treatDetail,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zju.gcs.model.RecordDO" >
+    update record
+    <set >
+      <if test="createdAt != null" >
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="patientId != null" >
+        patient_id = #{patientId,jdbcType=INTEGER},
+      </if>
+      <if test="chief != null" >
+        chief = #{chief,jdbcType=VARCHAR},
+      </if>
+      <if test="presentHistory != null" >
+        present_history = #{presentHistory,jdbcType=VARCHAR},
+      </if>
+      <if test="pastHistory != null" >
+        past_history = #{pastHistory,jdbcType=VARCHAR},
+      </if>
+      <if test="diseaseId != null" >
+        disease_id = #{diseaseId,jdbcType=INTEGER},
+      </if>
+      <if test="infraPath != null" >
+        infra_path = #{infraPath,jdbcType=VARCHAR},
+      </if>
+      <if test="infraDesc != null" >
+        infra_desc = #{infraDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="infraExcp != null" >
+        infra_excp = #{infraExcp,jdbcType=VARCHAR},
+      </if>
+      <if test="opinion != null" >
+        opinion = #{opinion,jdbcType=VARCHAR},
+      </if>
+      <if test="treat != null" >
+        treat = #{treat,jdbcType=VARCHAR},
+      </if>
+      <if test="treatDetail != null" >
+        treat_detail = #{treatDetail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zju.gcs.model.RecordDO" >
+    update record
+    set created_at = #{createdAt,jdbcType=TIMESTAMP},
+      patient_id = #{patientId,jdbcType=INTEGER},
+      chief = #{chief,jdbcType=VARCHAR},
+      present_history = #{presentHistory,jdbcType=VARCHAR},
+      past_history = #{pastHistory,jdbcType=VARCHAR},
+      disease_id = #{diseaseId,jdbcType=INTEGER},
+      infra_path = #{infraPath,jdbcType=VARCHAR},
+      infra_desc = #{infraDesc,jdbcType=VARCHAR},
+      infra_excp = #{infraExcp,jdbcType=VARCHAR},
+      opinion = #{opinion,jdbcType=VARCHAR},
+      treat = #{treat,jdbcType=VARCHAR},
+      treat_detail = #{treatDetail,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

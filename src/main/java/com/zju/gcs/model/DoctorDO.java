@@ -1,11 +1,11 @@
 package com.zju.gcs.model;
 
-public class UserDO {
+public class DoctorDO {
     private Integer id;
 
-    private String username;
+    private Integer userId;
 
-    private String password;
+    private String name;
 
     private String department;
 
@@ -17,20 +17,20 @@ public class UserDO {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUsername(String username) {
-        this.username = username == null ? null : username.trim();
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public String getPassword() {
-        return password;
+    public String getName() {
+        return name;
     }
 
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
     public String getDepartment() {

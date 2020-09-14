@@ -57,6 +57,18 @@
         <table tableName="user" schema="spine_rehab" domainObjectName="UserDO">
             <property name="ignoreQualifiersAtRuntime" value="true"/>
         </table>
+        <table tableName="record" schema="spine_rehab" domainObjectName="RecordDO">
+            <property name="ignoreQualifiersAtRuntime" value="true"/>
+        </table>
+        <table tableName="patient" schema="spine_rehab" domainObjectName="PatientDO">
+            <property name="ignoreQualifiersAtRuntime" value="true"/>
+        </table>
+        <table tableName="doctor" schema="spine_rehab" domainObjectName="DoctorDO">
+            <property name="ignoreQualifiersAtRuntime" value="true"/>
+        </table>
+        <table tableName="disease" schema="spine_rehab" domainObjectName="DiseaseDO">
+            <property name="ignoreQualifiersAtRuntime" value="true"/>
+        </table>
         <!--<table tableName="chinese_medicine" schema="rehab_sy" domainObjectName="ChineseMedicineDO">-->
         <!--<property name="ignoreQualifiersAtRuntime" value="true"/>-->
         <!--</table>-->
