@@ -17,5 +17,5 @@ public class AddPatientVO {
     private String chief;
     private String medicalHistory;
     private String opinion;
-    private Integer diseaseId;
+    private Integer dieseaseId;
 }

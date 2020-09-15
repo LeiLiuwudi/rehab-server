@@ -60,9 +60,7 @@ public class RecordServiceImpl implements RecordService {
             return "";
         }
         String fileName = file.getOriginalFilename();
-        System.out.println(fileName);
         String fullPath = (param == 0 ? BASE_PATH_BEFORE:BASE_PATH_AFTER) + File.separator + fileName;
-        System.out.println(fullPath);
         File newFile = new File(fullPath);
         if(!newFile.getParentFile().exists()){
             newFile.getParentFile().mkdirs();
