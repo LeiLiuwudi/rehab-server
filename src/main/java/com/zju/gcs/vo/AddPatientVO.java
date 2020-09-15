@@ -14,4 +14,8 @@ public class AddPatientVO {
     private Double height;
     private String department;
     private Integer doctorId;
+    private String chief;
+    private String medicalHistory;
+    private String opinion;
+    private Integer diseaseId;
 }

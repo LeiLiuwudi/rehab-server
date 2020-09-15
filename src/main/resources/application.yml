@@ -39,4 +39,6 @@ pagehelper:
 
 rehab:
   file:
-    location: E:\java-web\infraFile
+#    location: E:\java-web\infraFile
+    locationBefore: E:\java-web\infraFile\before
+    locationAfter: E:\java-web\infraFile\after

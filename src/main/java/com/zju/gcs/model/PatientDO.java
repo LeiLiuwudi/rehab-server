@@ -19,6 +19,14 @@ public class PatientDO {
 
     private Integer doctorId;
 
+    private String chief;
+
+    private String medicalHistory;
+
+    private String opinion;
+
+    private Integer dieseaseId;
+
     public Integer getId() {
         return id;
     }
@@ -81,5 +89,37 @@ public class PatientDO {
 
     public void setDoctorId(Integer doctorId) {
         this.doctorId = doctorId;
+    }
+
+    public String getChief() {
+        return chief;
+    }
+
+    public void setChief(String chief) {
+        this.chief = chief == null ? null : chief.trim();
+    }
+
+    public String getMedicalHistory() {
+        return medicalHistory;
+    }
+
+    public void setMedicalHistory(String medicalHistory) {
+        this.medicalHistory = medicalHistory == null ? null : medicalHistory.trim();
+    }
+
+    public String getOpinion() {
+        return opinion;
+    }
+
+    public void setOpinion(String opinion) {
+        this.opinion = opinion == null ? null : opinion.trim();
+    }
+
+    public Integer getDieseaseId() {
+        return dieseaseId;
+    }
+
+    public void setDieseaseId(Integer dieseaseId) {
+        this.dieseaseId = dieseaseId;
     }
 }

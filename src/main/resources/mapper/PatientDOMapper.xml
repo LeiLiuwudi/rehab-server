@@ -10,6 +10,10 @@
     <result column="weight" property="weight" jdbcType="DOUBLE" />
     <result column="department" property="department" jdbcType="VARCHAR" />
     <result column="doctor_id" property="doctorId" jdbcType="INTEGER" />
+    <result column="chief" property="chief" jdbcType="VARCHAR" />
+    <result column="medical_history" property="medicalHistory" jdbcType="VARCHAR" />
+    <result column="opinion" property="opinion" jdbcType="VARCHAR" />
+    <result column="diesease_id" property="dieseaseId" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -70,7 +74,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, gender, birthday, height, weight, department, doctor_id
+    id, name, gender, birthday, height, weight, department, doctor_id, chief, medical_history, 
+    opinion, diesease_id
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zju.gcs.model.PatientDOExample" >
     select
@@ -105,10 +110,14 @@
   <insert id="insert" parameterType="com.zju.gcs.model.PatientDO" >
     insert into patient (id, name, gender, 
       birthday, height, weight, 
-      department, doctor_id)
+      department, doctor_id, chief, 
+      medical_history, opinion, diesease_id
+      )
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{gender,jdbcType=TINYINT}, 
       #{birthday,jdbcType=DATE}, #{height,jdbcType=DOUBLE}, #{weight,jdbcType=DOUBLE}, 
-      #{department,jdbcType=VARCHAR}, #{doctorId,jdbcType=INTEGER})
+      #{department,jdbcType=VARCHAR}, #{doctorId,jdbcType=INTEGER}, #{chief,jdbcType=VARCHAR}, 
+      #{medicalHistory,jdbcType=VARCHAR}, #{opinion,jdbcType=VARCHAR}, #{dieseaseId,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.zju.gcs.model.PatientDO" >
     insert into patient
@@ -137,6 +146,18 @@
       <if test="doctorId != null" >
         doctor_id,
       </if>
+      <if test="chief != null" >
+        chief,
+      </if>
+      <if test="medicalHistory != null" >
+        medical_history,
+      </if>
+      <if test="opinion != null" >
+        opinion,
+      </if>
+      <if test="dieseaseId != null" >
+        diesease_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -162,6 +183,18 @@
       </if>
       <if test="doctorId != null" >
         #{doctorId,jdbcType=INTEGER},
+      </if>
+      <if test="chief != null" >
+        #{chief,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalHistory != null" >
+        #{medicalHistory,jdbcType=VARCHAR},
+      </if>
+      <if test="opinion != null" >
+        #{opinion,jdbcType=VARCHAR},
+      </if>
+      <if test="dieseaseId != null" >
+        #{dieseaseId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -198,6 +231,18 @@
       <if test="record.doctorId != null" >
         doctor_id = #{record.doctorId,jdbcType=INTEGER},
       </if>
+      <if test="record.chief != null" >
+        chief = #{record.chief,jdbcType=VARCHAR},
+      </if>
+      <if test="record.medicalHistory != null" >
+        medical_history = #{record.medicalHistory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.opinion != null" >
+        opinion = #{record.opinion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dieseaseId != null" >
+        diesease_id = #{record.dieseaseId,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -212,7 +257,11 @@
       height = #{record.height,jdbcType=DOUBLE},
       weight = #{record.weight,jdbcType=DOUBLE},
       department = #{record.department,jdbcType=VARCHAR},
-      doctor_id = #{record.doctorId,jdbcType=INTEGER}
+      doctor_id = #{record.doctorId,jdbcType=INTEGER},
+      chief = #{record.chief,jdbcType=VARCHAR},
+      medical_history = #{record.medicalHistory,jdbcType=VARCHAR},
+      opinion = #{record.opinion,jdbcType=VARCHAR},
+      diesease_id = #{record.dieseaseId,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -241,6 +290,18 @@
       <if test="doctorId != null" >
         doctor_id = #{doctorId,jdbcType=INTEGER},
       </if>
+      <if test="chief != null" >
+        chief = #{chief,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalHistory != null" >
+        medical_history = #{medicalHistory,jdbcType=VARCHAR},
+      </if>
+      <if test="opinion != null" >
+        opinion = #{opinion,jdbcType=VARCHAR},
+      </if>
+      <if test="dieseaseId != null" >
+        diesease_id = #{dieseaseId,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -252,7 +313,11 @@
       height = #{height,jdbcType=DOUBLE},
       weight = #{weight,jdbcType=DOUBLE},
       department = #{department,jdbcType=VARCHAR},
-      doctor_id = #{doctorId,jdbcType=INTEGER}
+      doctor_id = #{doctorId,jdbcType=INTEGER},
+      chief = #{chief,jdbcType=VARCHAR},
+      medical_history = #{medicalHistory,jdbcType=VARCHAR},
+      opinion = #{opinion,jdbcType=VARCHAR},
+      diesease_id = #{dieseaseId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -21,7 +21,7 @@ public class PatientController {
     private PatientService patientService;
 
     @PostMapping("addPatient")
-    public Result<Void> register(@RequestBody AddPatientVO addPatientVO) {
+    public Result<Void> addPatient(@RequestBody AddPatientVO addPatientVO) {
         Result<Void> result = new Result<>();
         PatientDO patientDO = new PatientDO();
         try {

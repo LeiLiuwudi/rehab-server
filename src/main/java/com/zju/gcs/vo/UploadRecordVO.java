@@ -8,22 +8,20 @@ import java.util.Date;
 @Data
 public class UploadRecordVO {
     private Integer patientId;
-    private String name;
-    private Byte gender;
-    private Date birthday;
-    private Double height;
-    private Double weight;
-    private String department;
-    private Integer doctorId;
     private Date createdAt;
     private String chief;
-    private String presentHistory;
-    private String pastHistory;
-    private Integer diseaseId;
-    private MultipartFile infraFile;
-    private String infraDesc;
-    private String infraExcp;
-    private String opinion;
+    private String medicalHistory;
+    private MultipartFile infraBeforeFile;
+    private MultipartFile infraAfterFile;
+    private String infraBeforeDesc;
+    private String infraAfterDesc;
+    private String infraBeforeExcp;
+    private String infraAfterExcp;
+    private String medicationBefore;
+    private String medicationAfter;
+    private Date timeBefore;
+    private Date timeAfter;
+    private Date timeMiddle;
     private String treat;
     private String treatDetail;
 }

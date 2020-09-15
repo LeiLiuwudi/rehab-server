@@ -11,23 +11,35 @@ public class RecordDO {
 
     private String chief;
 
-    private String presentHistory;
+    private String medicalHistory;
 
-    private String pastHistory;
+    private String infraBeforePath;
 
-    private Integer diseaseId;
+    private String infraAfterPath;
 
-    private String infraPath;
+    private String infraBeforeDesc;
 
-    private String infraDesc;
+    private String infraAfterDesc;
 
-    private String infraExcp;
+    private String infraBeforeExcp;
 
-    private String opinion;
+    private String infraAfterExcp;
+
+    private String medicationBefore;
+
+    private String medicationAfter;
+
+    private Date timeBefore;
+
+    private Date timeAfter;
+
+    private Date timeMiddle;
 
     private String treat;
 
     private String treatDetail;
+
+    private Integer treatCount;
 
     public Integer getId() {
         return id;
@@ -61,60 +73,100 @@ public class RecordDO {
         this.chief = chief == null ? null : chief.trim();
     }
 
-    public String getPresentHistory() {
-        return presentHistory;
+    public String getMedicalHistory() {
+        return medicalHistory;
     }
 
-    public void setPresentHistory(String presentHistory) {
-        this.presentHistory = presentHistory == null ? null : presentHistory.trim();
+    public void setMedicalHistory(String medicalHistory) {
+        this.medicalHistory = medicalHistory == null ? null : medicalHistory.trim();
     }
 
-    public String getPastHistory() {
-        return pastHistory;
+    public String getInfraBeforePath() {
+        return infraBeforePath;
     }
 
-    public void setPastHistory(String pastHistory) {
-        this.pastHistory = pastHistory == null ? null : pastHistory.trim();
+    public void setInfraBeforePath(String infraBeforePath) {
+        this.infraBeforePath = infraBeforePath == null ? null : infraBeforePath.trim();
     }
 
-    public Integer getDiseaseId() {
-        return diseaseId;
+    public String getInfraAfterPath() {
+        return infraAfterPath;
     }
 
-    public void setDiseaseId(Integer diseaseId) {
-        this.diseaseId = diseaseId;
+    public void setInfraAfterPath(String infraAfterPath) {
+        this.infraAfterPath = infraAfterPath == null ? null : infraAfterPath.trim();
     }
 
-    public String getInfraPath() {
-        return infraPath;
+    public String getInfraBeforeDesc() {
+        return infraBeforeDesc;
     }
 
-    public void setInfraPath(String infraPath) {
-        this.infraPath = infraPath == null ? null : infraPath.trim();
+    public void setInfraBeforeDesc(String infraBeforeDesc) {
+        this.infraBeforeDesc = infraBeforeDesc == null ? null : infraBeforeDesc.trim();
     }
 
-    public String getInfraDesc() {
-        return infraDesc;
+    public String getInfraAfterDesc() {
+        return infraAfterDesc;
     }
 
-    public void setInfraDesc(String infraDesc) {
-        this.infraDesc = infraDesc == null ? null : infraDesc.trim();
+    public void setInfraAfterDesc(String infraAfterDesc) {
+        this.infraAfterDesc = infraAfterDesc == null ? null : infraAfterDesc.trim();
     }
 
-    public String getInfraExcp() {
-        return infraExcp;
+    public String getInfraBeforeExcp() {
+        return infraBeforeExcp;
     }
 
-    public void setInfraExcp(String infraExcp) {
-        this.infraExcp = infraExcp == null ? null : infraExcp.trim();
+    public void setInfraBeforeExcp(String infraBeforeExcp) {
+        this.infraBeforeExcp = infraBeforeExcp == null ? null : infraBeforeExcp.trim();
     }
 
-    public String getOpinion() {
-        return opinion;
+    public String getInfraAfterExcp() {
+        return infraAfterExcp;
     }
 
-    public void setOpinion(String opinion) {
-        this.opinion = opinion == null ? null : opinion.trim();
+    public void setInfraAfterExcp(String infraAfterExcp) {
+        this.infraAfterExcp = infraAfterExcp == null ? null : infraAfterExcp.trim();
+    }
+
+    public String getMedicationBefore() {
+        return medicationBefore;
+    }
+
+    public void setMedicationBefore(String medicationBefore) {
+        this.medicationBefore = medicationBefore == null ? null : medicationBefore.trim();
+    }
+
+    public String getMedicationAfter() {
+        return medicationAfter;
+    }
+
+    public void setMedicationAfter(String medicationAfter) {
+        this.medicationAfter = medicationAfter == null ? null : medicationAfter.trim();
+    }
+
+    public Date getTimeBefore() {
+        return timeBefore;
+    }
+
+    public void setTimeBefore(Date timeBefore) {
+        this.timeBefore = timeBefore;
+    }
+
+    public Date getTimeAfter() {
+        return timeAfter;
+    }
+
+    public void setTimeAfter(Date timeAfter) {
+        this.timeAfter = timeAfter;
+    }
+
+    public Date getTimeMiddle() {
+        return timeMiddle;
+    }
+
+    public void setTimeMiddle(Date timeMiddle) {
+        this.timeMiddle = timeMiddle;
     }
 
     public String getTreat() {
@@ -131,5 +183,13 @@ public class RecordDO {
 
     public void setTreatDetail(String treatDetail) {
         this.treatDetail = treatDetail == null ? null : treatDetail.trim();
+    }
+
+    public Integer getTreatCount() {
+        return treatCount;
+    }
+
+    public void setTreatCount(Integer treatCount) {
+        this.treatCount = treatCount;
     }
 }

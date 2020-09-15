@@ -6,15 +6,21 @@
     <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
     <result column="patient_id" property="patientId" jdbcType="INTEGER" />
     <result column="chief" property="chief" jdbcType="VARCHAR" />
-    <result column="present_history" property="presentHistory" jdbcType="VARCHAR" />
-    <result column="past_history" property="pastHistory" jdbcType="VARCHAR" />
-    <result column="disease_id" property="diseaseId" jdbcType="INTEGER" />
-    <result column="infra_path" property="infraPath" jdbcType="VARCHAR" />
-    <result column="infra_desc" property="infraDesc" jdbcType="VARCHAR" />
-    <result column="infra_excp" property="infraExcp" jdbcType="VARCHAR" />
-    <result column="opinion" property="opinion" jdbcType="VARCHAR" />
+    <result column="medical_history" property="medicalHistory" jdbcType="VARCHAR" />
+    <result column="infra_before_path" property="infraBeforePath" jdbcType="VARCHAR" />
+    <result column="infra_after_path" property="infraAfterPath" jdbcType="VARCHAR" />
+    <result column="infra_before_desc" property="infraBeforeDesc" jdbcType="VARCHAR" />
+    <result column="infra_after_desc" property="infraAfterDesc" jdbcType="VARCHAR" />
+    <result column="infra_before_excp" property="infraBeforeExcp" jdbcType="VARCHAR" />
+    <result column="infra_after_excp" property="infraAfterExcp" jdbcType="VARCHAR" />
+    <result column="medication_before" property="medicationBefore" jdbcType="VARCHAR" />
+    <result column="medication_after" property="medicationAfter" jdbcType="VARCHAR" />
+    <result column="time_before" property="timeBefore" jdbcType="TIMESTAMP" />
+    <result column="time_after" property="timeAfter" jdbcType="TIMESTAMP" />
+    <result column="time_middle" property="timeMiddle" jdbcType="TIMESTAMP" />
     <result column="treat" property="treat" jdbcType="VARCHAR" />
     <result column="treat_detail" property="treatDetail" jdbcType="VARCHAR" />
+    <result column="treat_count" property="treatCount" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -75,8 +81,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, created_at, patient_id, chief, present_history, past_history, disease_id, infra_path, 
-    infra_desc, infra_excp, opinion, treat, treat_detail
+    id, created_at, patient_id, chief, medical_history, infra_before_path, infra_after_path, 
+    infra_before_desc, infra_after_desc, infra_before_excp, infra_after_excp, medication_before, 
+    medication_after, time_before, time_after, time_middle, treat, treat_detail, treat_count
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zju.gcs.model.RecordDOExample" >
     select
@@ -92,17 +99,17 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectHistoryRecords" resultMap="BaseResultMap" parameterType="com.zju.gcs.vo.HistoryRecordsVO" >
-    select id, created_at, patient_id, chief, present_history, past_history, disease_id, infra_path, infra_desc,
-        infra_excp, opinion, treat, treat_detail
-    from record
-    where patient_id = #{patientId,jdbcType = INTEGER}
-  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from record
     where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectHistoryRecords" resultMap="BaseResultMap" parameterType="com.zju.gcs.vo.HistoryRecordsVO" >
+    select
+    <include refid="Base_Column_List" />
+    from record
+    where patient_id = #{patientId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from record
@@ -116,15 +123,19 @@
   </delete>
   <insert id="insert" parameterType="com.zju.gcs.model.RecordDO" >
     insert into record (id, created_at, patient_id, 
-      chief, present_history, past_history, 
-      disease_id, infra_path, infra_desc, 
-      infra_excp, opinion, treat, 
-      treat_detail)
+      chief, medical_history, infra_before_path, 
+      infra_after_path, infra_before_desc, infra_after_desc, 
+      infra_before_excp, infra_after_excp, medication_before, 
+      medication_after, time_before, time_after, 
+      time_middle, treat, treat_detail, 
+      treat_count)
     values (#{id,jdbcType=INTEGER}, #{createdAt,jdbcType=TIMESTAMP}, #{patientId,jdbcType=INTEGER}, 
-      #{chief,jdbcType=VARCHAR}, #{presentHistory,jdbcType=VARCHAR}, #{pastHistory,jdbcType=VARCHAR}, 
-      #{diseaseId,jdbcType=INTEGER}, #{infraPath,jdbcType=VARCHAR}, #{infraDesc,jdbcType=VARCHAR}, 
-      #{infraExcp,jdbcType=VARCHAR}, #{opinion,jdbcType=VARCHAR}, #{treat,jdbcType=VARCHAR}, 
-      #{treatDetail,jdbcType=VARCHAR})
+      #{chief,jdbcType=VARCHAR}, #{medicalHistory,jdbcType=VARCHAR}, #{infraBeforePath,jdbcType=VARCHAR}, 
+      #{infraAfterPath,jdbcType=VARCHAR}, #{infraBeforeDesc,jdbcType=VARCHAR}, #{infraAfterDesc,jdbcType=VARCHAR}, 
+      #{infraBeforeExcp,jdbcType=VARCHAR}, #{infraAfterExcp,jdbcType=VARCHAR}, #{medicationBefore,jdbcType=VARCHAR}, 
+      #{medicationAfter,jdbcType=VARCHAR}, #{timeBefore,jdbcType=TIMESTAMP}, #{timeAfter,jdbcType=TIMESTAMP}, 
+      #{timeMiddle,jdbcType=TIMESTAMP}, #{treat,jdbcType=VARCHAR}, #{treatDetail,jdbcType=VARCHAR}, 
+      #{treatCount,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.zju.gcs.model.RecordDO" >
     insert into record
@@ -141,32 +152,50 @@
       <if test="chief != null" >
         chief,
       </if>
-      <if test="presentHistory != null" >
-        present_history,
+      <if test="medicalHistory != null" >
+        medical_history,
       </if>
-      <if test="pastHistory != null" >
-        past_history,
+      <if test="infraBeforePath != null" >
+        infra_before_path,
       </if>
-      <if test="diseaseId != null" >
-        disease_id,
+      <if test="infraAfterPath != null" >
+        infra_after_path,
       </if>
-      <if test="infraPath != null" >
-        infra_path,
+      <if test="infraBeforeDesc != null" >
+        infra_before_desc,
       </if>
-      <if test="infraDesc != null" >
-        infra_desc,
+      <if test="infraAfterDesc != null" >
+        infra_after_desc,
       </if>
-      <if test="infraExcp != null" >
-        infra_excp,
+      <if test="infraBeforeExcp != null" >
+        infra_before_excp,
       </if>
-      <if test="opinion != null" >
-        opinion,
+      <if test="infraAfterExcp != null" >
+        infra_after_excp,
+      </if>
+      <if test="medicationBefore != null" >
+        medication_before,
+      </if>
+      <if test="medicationAfter != null" >
+        medication_after,
+      </if>
+      <if test="timeBefore != null" >
+        time_before,
+      </if>
+      <if test="timeAfter != null" >
+        time_after,
+      </if>
+      <if test="timeMiddle != null" >
+        time_middle,
       </if>
       <if test="treat != null" >
         treat,
       </if>
       <if test="treatDetail != null" >
         treat_detail,
+      </if>
+      <if test="treatCount != null" >
+        treat_count,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -182,32 +211,50 @@
       <if test="chief != null" >
         #{chief,jdbcType=VARCHAR},
       </if>
-      <if test="presentHistory != null" >
-        #{presentHistory,jdbcType=VARCHAR},
+      <if test="medicalHistory != null" >
+        #{medicalHistory,jdbcType=VARCHAR},
       </if>
-      <if test="pastHistory != null" >
-        #{pastHistory,jdbcType=VARCHAR},
+      <if test="infraBeforePath != null" >
+        #{infraBeforePath,jdbcType=VARCHAR},
       </if>
-      <if test="diseaseId != null" >
-        #{diseaseId,jdbcType=INTEGER},
+      <if test="infraAfterPath != null" >
+        #{infraAfterPath,jdbcType=VARCHAR},
       </if>
-      <if test="infraPath != null" >
-        #{infraPath,jdbcType=VARCHAR},
+      <if test="infraBeforeDesc != null" >
+        #{infraBeforeDesc,jdbcType=VARCHAR},
       </if>
-      <if test="infraDesc != null" >
-        #{infraDesc,jdbcType=VARCHAR},
+      <if test="infraAfterDesc != null" >
+        #{infraAfterDesc,jdbcType=VARCHAR},
       </if>
-      <if test="infraExcp != null" >
-        #{infraExcp,jdbcType=VARCHAR},
+      <if test="infraBeforeExcp != null" >
+        #{infraBeforeExcp,jdbcType=VARCHAR},
       </if>
-      <if test="opinion != null" >
-        #{opinion,jdbcType=VARCHAR},
+      <if test="infraAfterExcp != null" >
+        #{infraAfterExcp,jdbcType=VARCHAR},
+      </if>
+      <if test="medicationBefore != null" >
+        #{medicationBefore,jdbcType=VARCHAR},
+      </if>
+      <if test="medicationAfter != null" >
+        #{medicationAfter,jdbcType=VARCHAR},
+      </if>
+      <if test="timeBefore != null" >
+        #{timeBefore,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeAfter != null" >
+        #{timeAfter,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeMiddle != null" >
+        #{timeMiddle,jdbcType=TIMESTAMP},
       </if>
       <if test="treat != null" >
         #{treat,jdbcType=VARCHAR},
       </if>
       <if test="treatDetail != null" >
         #{treatDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="treatCount != null" >
+        #{treatCount,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -232,32 +279,50 @@
       <if test="record.chief != null" >
         chief = #{record.chief,jdbcType=VARCHAR},
       </if>
-      <if test="record.presentHistory != null" >
-        present_history = #{record.presentHistory,jdbcType=VARCHAR},
+      <if test="record.medicalHistory != null" >
+        medical_history = #{record.medicalHistory,jdbcType=VARCHAR},
       </if>
-      <if test="record.pastHistory != null" >
-        past_history = #{record.pastHistory,jdbcType=VARCHAR},
+      <if test="record.infraBeforePath != null" >
+        infra_before_path = #{record.infraBeforePath,jdbcType=VARCHAR},
       </if>
-      <if test="record.diseaseId != null" >
-        disease_id = #{record.diseaseId,jdbcType=INTEGER},
+      <if test="record.infraAfterPath != null" >
+        infra_after_path = #{record.infraAfterPath,jdbcType=VARCHAR},
       </if>
-      <if test="record.infraPath != null" >
-        infra_path = #{record.infraPath,jdbcType=VARCHAR},
+      <if test="record.infraBeforeDesc != null" >
+        infra_before_desc = #{record.infraBeforeDesc,jdbcType=VARCHAR},
       </if>
-      <if test="record.infraDesc != null" >
-        infra_desc = #{record.infraDesc,jdbcType=VARCHAR},
+      <if test="record.infraAfterDesc != null" >
+        infra_after_desc = #{record.infraAfterDesc,jdbcType=VARCHAR},
       </if>
-      <if test="record.infraExcp != null" >
-        infra_excp = #{record.infraExcp,jdbcType=VARCHAR},
+      <if test="record.infraBeforeExcp != null" >
+        infra_before_excp = #{record.infraBeforeExcp,jdbcType=VARCHAR},
       </if>
-      <if test="record.opinion != null" >
-        opinion = #{record.opinion,jdbcType=VARCHAR},
+      <if test="record.infraAfterExcp != null" >
+        infra_after_excp = #{record.infraAfterExcp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.medicationBefore != null" >
+        medication_before = #{record.medicationBefore,jdbcType=VARCHAR},
+      </if>
+      <if test="record.medicationAfter != null" >
+        medication_after = #{record.medicationAfter,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timeBefore != null" >
+        time_before = #{record.timeBefore,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.timeAfter != null" >
+        time_after = #{record.timeAfter,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.timeMiddle != null" >
+        time_middle = #{record.timeMiddle,jdbcType=TIMESTAMP},
       </if>
       <if test="record.treat != null" >
         treat = #{record.treat,jdbcType=VARCHAR},
       </if>
       <if test="record.treatDetail != null" >
         treat_detail = #{record.treatDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.treatCount != null" >
+        treat_count = #{record.treatCount,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -270,15 +335,21 @@
       created_at = #{record.createdAt,jdbcType=TIMESTAMP},
       patient_id = #{record.patientId,jdbcType=INTEGER},
       chief = #{record.chief,jdbcType=VARCHAR},
-      present_history = #{record.presentHistory,jdbcType=VARCHAR},
-      past_history = #{record.pastHistory,jdbcType=VARCHAR},
-      disease_id = #{record.diseaseId,jdbcType=INTEGER},
-      infra_path = #{record.infraPath,jdbcType=VARCHAR},
-      infra_desc = #{record.infraDesc,jdbcType=VARCHAR},
-      infra_excp = #{record.infraExcp,jdbcType=VARCHAR},
-      opinion = #{record.opinion,jdbcType=VARCHAR},
+      medical_history = #{record.medicalHistory,jdbcType=VARCHAR},
+      infra_before_path = #{record.infraBeforePath,jdbcType=VARCHAR},
+      infra_after_path = #{record.infraAfterPath,jdbcType=VARCHAR},
+      infra_before_desc = #{record.infraBeforeDesc,jdbcType=VARCHAR},
+      infra_after_desc = #{record.infraAfterDesc,jdbcType=VARCHAR},
+      infra_before_excp = #{record.infraBeforeExcp,jdbcType=VARCHAR},
+      infra_after_excp = #{record.infraAfterExcp,jdbcType=VARCHAR},
+      medication_before = #{record.medicationBefore,jdbcType=VARCHAR},
+      medication_after = #{record.medicationAfter,jdbcType=VARCHAR},
+      time_before = #{record.timeBefore,jdbcType=TIMESTAMP},
+      time_after = #{record.timeAfter,jdbcType=TIMESTAMP},
+      time_middle = #{record.timeMiddle,jdbcType=TIMESTAMP},
       treat = #{record.treat,jdbcType=VARCHAR},
-      treat_detail = #{record.treatDetail,jdbcType=VARCHAR}
+      treat_detail = #{record.treatDetail,jdbcType=VARCHAR},
+      treat_count = #{record.treatCount,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -295,32 +366,50 @@
       <if test="chief != null" >
         chief = #{chief,jdbcType=VARCHAR},
       </if>
-      <if test="presentHistory != null" >
-        present_history = #{presentHistory,jdbcType=VARCHAR},
+      <if test="medicalHistory != null" >
+        medical_history = #{medicalHistory,jdbcType=VARCHAR},
       </if>
-      <if test="pastHistory != null" >
-        past_history = #{pastHistory,jdbcType=VARCHAR},
+      <if test="infraBeforePath != null" >
+        infra_before_path = #{infraBeforePath,jdbcType=VARCHAR},
       </if>
-      <if test="diseaseId != null" >
-        disease_id = #{diseaseId,jdbcType=INTEGER},
+      <if test="infraAfterPath != null" >
+        infra_after_path = #{infraAfterPath,jdbcType=VARCHAR},
       </if>
-      <if test="infraPath != null" >
-        infra_path = #{infraPath,jdbcType=VARCHAR},
+      <if test="infraBeforeDesc != null" >
+        infra_before_desc = #{infraBeforeDesc,jdbcType=VARCHAR},
       </if>
-      <if test="infraDesc != null" >
-        infra_desc = #{infraDesc,jdbcType=VARCHAR},
+      <if test="infraAfterDesc != null" >
+        infra_after_desc = #{infraAfterDesc,jdbcType=VARCHAR},
       </if>
-      <if test="infraExcp != null" >
-        infra_excp = #{infraExcp,jdbcType=VARCHAR},
+      <if test="infraBeforeExcp != null" >
+        infra_before_excp = #{infraBeforeExcp,jdbcType=VARCHAR},
       </if>
-      <if test="opinion != null" >
-        opinion = #{opinion,jdbcType=VARCHAR},
+      <if test="infraAfterExcp != null" >
+        infra_after_excp = #{infraAfterExcp,jdbcType=VARCHAR},
+      </if>
+      <if test="medicationBefore != null" >
+        medication_before = #{medicationBefore,jdbcType=VARCHAR},
+      </if>
+      <if test="medicationAfter != null" >
+        medication_after = #{medicationAfter,jdbcType=VARCHAR},
+      </if>
+      <if test="timeBefore != null" >
+        time_before = #{timeBefore,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeAfter != null" >
+        time_after = #{timeAfter,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeMiddle != null" >
+        time_middle = #{timeMiddle,jdbcType=TIMESTAMP},
       </if>
       <if test="treat != null" >
         treat = #{treat,jdbcType=VARCHAR},
       </if>
       <if test="treatDetail != null" >
         treat_detail = #{treatDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="treatCount != null" >
+        treat_count = #{treatCount,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -330,15 +419,21 @@
     set created_at = #{createdAt,jdbcType=TIMESTAMP},
       patient_id = #{patientId,jdbcType=INTEGER},
       chief = #{chief,jdbcType=VARCHAR},
-      present_history = #{presentHistory,jdbcType=VARCHAR},
-      past_history = #{pastHistory,jdbcType=VARCHAR},
-      disease_id = #{diseaseId,jdbcType=INTEGER},
-      infra_path = #{infraPath,jdbcType=VARCHAR},
-      infra_desc = #{infraDesc,jdbcType=VARCHAR},
-      infra_excp = #{infraExcp,jdbcType=VARCHAR},
-      opinion = #{opinion,jdbcType=VARCHAR},
+      medical_history = #{medicalHistory,jdbcType=VARCHAR},
+      infra_before_path = #{infraBeforePath,jdbcType=VARCHAR},
+      infra_after_path = #{infraAfterPath,jdbcType=VARCHAR},
+      infra_before_desc = #{infraBeforeDesc,jdbcType=VARCHAR},
+      infra_after_desc = #{infraAfterDesc,jdbcType=VARCHAR},
+      infra_before_excp = #{infraBeforeExcp,jdbcType=VARCHAR},
+      infra_after_excp = #{infraAfterExcp,jdbcType=VARCHAR},
+      medication_before = #{medicationBefore,jdbcType=VARCHAR},
+      medication_after = #{medicationAfter,jdbcType=VARCHAR},
+      time_before = #{timeBefore,jdbcType=TIMESTAMP},
+      time_after = #{timeAfter,jdbcType=TIMESTAMP},
+      time_middle = #{timeMiddle,jdbcType=TIMESTAMP},
       treat = #{treat,jdbcType=VARCHAR},
-      treat_detail = #{treatDetail,jdbcType=VARCHAR}
+      treat_detail = #{treatDetail,jdbcType=VARCHAR},
+      treat_count = #{treatCount,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

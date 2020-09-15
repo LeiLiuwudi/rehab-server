@@ -4,7 +4,6 @@ import com.zju.gcs.common.exception.NirExceptionEnum;
 import com.zju.gcs.common.result.Result;
 import com.zju.gcs.common.result.ResultEnum;
 import com.zju.gcs.model.RecordDO;
-import com.zju.gcs.service.PatientService;
 import com.zju.gcs.service.RecordService;
 import com.zju.gcs.vo.HistoryRecordsVO;
 import com.zju.gcs.vo.UploadRecordVO;

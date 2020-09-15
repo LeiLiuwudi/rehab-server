@@ -15,5 +15,5 @@ public interface RecordService {
 
     void uploadRecord(UploadRecordVO uploadRecordsVO) throws IOException;
 
-    String addFile(MultipartFile file) throws IOException;
+    String addFile(MultipartFile file,Integer param) throws IOException;
 }
