@@ -56,4 +56,5 @@ public class RecordController {
         result.setMsg(ResultEnum.SUCCESS.getMsg());
         return result;
     }
+
 }

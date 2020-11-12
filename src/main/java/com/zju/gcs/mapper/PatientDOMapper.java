@@ -1,8 +1,11 @@
 package com.zju.gcs.mapper;
 
+import com.zju.gcs.model.GetpatientDO;
 import com.zju.gcs.model.PatientDO;
 import com.zju.gcs.model.PatientDOExample;
 import java.util.List;
+
+import com.zju.gcs.vo.GetPatientVO;
 import org.apache.ibatis.annotations.Param;
 
 public interface PatientDOMapper {
@@ -27,4 +30,6 @@ public interface PatientDOMapper {
     int updateByPrimaryKeySelective(PatientDO record);
 
     int updateByPrimaryKey(PatientDO record);
+
+    List<GetpatientDO> selectByParams(GetPatientVO getPatientVO);
 }
