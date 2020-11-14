@@ -22,6 +22,31 @@
     <result column="treat_detail" property="treatDetail" jdbcType="VARCHAR" />
     <result column="treat_count" property="treatCount" jdbcType="INTEGER" />
   </resultMap>
+  <resultMap id="HistoryResultMap" type="com.zju.gcs.model.HistoryRecordDO" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="createdAt" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="patientId" property="patientId" jdbcType="INTEGER" />
+    <result column="chief" property="chief" jdbcType="VARCHAR" />
+    <result column="medicalHistory" property="medicalHistory" jdbcType="VARCHAR" />
+    <result column="infraBeforePath" property="infraBeforePath" jdbcType="VARCHAR" />
+    <result column="infraAfterPath" property="infraAfterPath" jdbcType="VARCHAR" />
+    <result column="infraBeforeDesc" property="infraBeforeDesc" jdbcType="VARCHAR" />
+    <result column="infraAfterDesc" property="infraAfterDesc" jdbcType="VARCHAR" />
+    <result column="infraBeforeExcp" property="infraBeforeExcp" jdbcType="VARCHAR" />
+    <result column="infraAfterExcp" property="infraAfterExcp" jdbcType="VARCHAR" />
+    <result column="medicationBefore" property="medicationBefore" jdbcType="VARCHAR" />
+    <result column="medicationAfter" property="medicationAfter" jdbcType="VARCHAR" />
+    <result column="timeBefore" property="timeBefore" jdbcType="TIMESTAMP" />
+    <result column="timeAfter" property="timeAfter" jdbcType="TIMESTAMP" />
+    <result column="timeMiddle" property="timeMiddle" jdbcType="TIMESTAMP" />
+    <result column="treat" property="treat" jdbcType="VARCHAR" />
+    <result column="treatDetail" property="treatDetail" jdbcType="VARCHAR" />
+    <result column="treatCount" property="treatCount" jdbcType="INTEGER" />
+    <result column="neckAreaBefore" property="neckAreaBefore" jdbcType="VARCHAR" />
+    <result column="neckAreaAfter" property="neckAreaAfter" jdbcType="VARCHAR" />
+    <result column="classificationBefore" property="classificationBefore" jdbcType="INTEGER" />
+    <result column="classificationAfter" property="classificationAfter" jdbcType="INTEGER" />
+  </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -105,11 +130,19 @@
     from record
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <select id="selectHistoryRecords" resultMap="BaseResultMap" parameterType="com.zju.gcs.vo.HistoryRecordsVO" >
-    select
-    <include refid="Base_Column_List" />
-    from record
-    where patient_id = #{patientId,jdbcType=INTEGER}
+  <select id="selectHistoryRecords" resultMap="HistoryResultMap" parameterType="com.zju.gcs.vo.HistoryRecordsVO" >
+    select r.id as id, r.created_at as createdAt, r.patient_id as patientId, r.chief as chief,
+    r.medical_history as medicalHistory, r.infra_before_path as infraBeforePath, r.infra_after_path as infraAfterPath,
+    r.infra_before_txt_path as infraBeforeTxtPath, infra_after_txt_path as infraAfterTxtPath,
+    r.infra_before_desc as infraBeforeDesc, r.infra_after_desc as infraAfterDesc, r.infra_before_excp as infraBeforeExcp,
+    r.infra_after_excp as infraAfterExcp, r.medication_before as medicationBefore, r.medication_after as medicationAfter,
+    r.time_before as timeBefore, r.time_after as timeAfter, r.time_middle as timeMiddle, r.treat as treat,
+    r.treat_detail as treatDetail, r.treat_count as treatCount, a.neck_area_before as neckAreaBefore ,
+    a.neck_area_after as neckAreaAfter, a.classification_before as classificationBefore,
+    a.classification_after as classificationAfter
+    from record r
+    left join analysis a on r.patient_id = a.patient_id and r.treat_count = a.treat_count
+    where r.patient_id = #{patientId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from record
@@ -157,6 +190,12 @@
       </if>
       <if test="infraBeforePath != null" >
         infra_before_path,
+      </if>
+      <if test="infraBeforeTxtPath != null" >
+        infra_before_txt_path,
+      </if>
+      <if test="infraAfterTxtPath != null" >
+        infra_after_txt_path,
       </if>
       <if test="infraAfterPath != null" >
         infra_after_path,
@@ -216,6 +255,12 @@
       </if>
       <if test="infraBeforePath != null" >
         #{infraBeforePath,jdbcType=VARCHAR},
+      </if>
+      <if test="infraBeforeTxtPath != null" >
+        #{infraBeforeTxtPath,jdbcType=VARCHAR},
+      </if>
+      <if test="infraAfterTxtPath != null" >
+        #{infraAfterTxtPath,jdbcType=VARCHAR},
       </if>
       <if test="infraAfterPath != null" >
         #{infraAfterPath,jdbcType=VARCHAR},

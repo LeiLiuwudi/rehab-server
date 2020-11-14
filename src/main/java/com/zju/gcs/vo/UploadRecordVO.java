@@ -11,6 +11,8 @@ public class UploadRecordVO {
     private Date createdAt;
     private String chief;
     private String medicalHistory;
+    private MultipartFile infraBeforeTxt;
+    private MultipartFile infraAfterTxt;
     private MultipartFile infraBeforeFile;
     private MultipartFile infraAfterFile;
     private String infraBeforeDesc;

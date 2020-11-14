@@ -223,11 +223,9 @@
   <select id="selectByParams" parameterType="com.zju.gcs.vo.GetPatientVO" resultMap="getPatientMap">
     select p.id as id ,p.name as name,p.gender as gender,p.birthday as birthday ,p.height as height,
     p.weight as weight,p.department as department,doc.name as doctorName,p.doctor_id as doctorId,
-    p.chief as chief, p.medical_history as medicalHistory, p.opinion as opinion,
-    r.created_at as createAt, dis.name as disease
+    p.chief as chief, p.medical_history as medicalHistory, p.opinion as opinion, dis.name as disease
     from patient p
     left join doctor doc on p.doctor_id = doc.id
-    left join record r on p.id = r.patient_id
     left join disease dis on p.diesease_id = dis.id
     <where>
       <if test="patientId != null">

@@ -3,16 +3,16 @@ package com.zju.gcs.Controller;
 import com.zju.gcs.common.exception.NirExceptionEnum;
 import com.zju.gcs.common.result.Result;
 import com.zju.gcs.common.result.ResultEnum;
+import com.zju.gcs.model.HistoryRecordDO;
 import com.zju.gcs.model.RecordDO;
 import com.zju.gcs.service.RecordService;
 import com.zju.gcs.vo.HistoryRecordsVO;
 import com.zju.gcs.vo.UploadRecordVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.util.List;
@@ -24,17 +24,17 @@ public class RecordController {
     private RecordService recordService;
 
     @PostMapping("getHistoryRecords")
-    public Result<List<RecordDO>> getHistoryRecords(@RequestBody HistoryRecordsVO historyRecordsVO) {
-        Result<List<RecordDO>> result = new Result<>();
-        List<RecordDO> diseaseList;
+    public Result<List<HistoryRecordDO>> getHistoryRecords(@RequestBody HistoryRecordsVO historyRecordsVO) {
+        Result<List<HistoryRecordDO>> result = new Result<>();
+        List<HistoryRecordDO> recordList;
         try {
-            diseaseList = recordService.getHistoryRecords(historyRecordsVO);
+            recordList = recordService.getHistoryRecords(historyRecordsVO);
         } catch (Exception e) {
             result.setCode(NirExceptionEnum.GENERAL_EXCEPTION.getCode());
             result.setMsg(e.getMessage());
             return result;
         }
-        result.setData(diseaseList);
+        result.setData(recordList);
         result.setCode(ResultEnum.SUCCESS.getCode());
         result.setMsg(ResultEnum.SUCCESS.getMsg());
         return result;

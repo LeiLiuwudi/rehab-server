@@ -2,7 +2,7 @@ package com.zju.gcs.model;
 
 import java.util.Date;
 
-public class RecordDO {
+public class HistoryRecordDO {
     private Integer id;
 
     private Date createdAt;
@@ -45,21 +45,13 @@ public class RecordDO {
 
     private Integer treatCount;
 
-    public String getInfraBeforeTxtPath() {
-        return infraBeforeTxtPath;
-    }
+    private String neckAreaBefore;
 
-    public void setInfraBeforeTxtPath(String infraBeforeTxtPath) {
-        this.infraBeforeTxtPath = infraBeforeTxtPath;
-    }
+    private String neckAreaAfter;
 
-    public String getInfraAfterTxtPath() {
-        return infraAfterTxtPath;
-    }
+    private Integer classificationBefore;
 
-    public void setInfraAfterTxtPath(String infraAfterTxtPath) {
-        this.infraAfterTxtPath = infraAfterTxtPath;
-    }
+    private Integer classificationAfter;
 
     public Integer getId() {
         return id;
@@ -90,7 +82,7 @@ public class RecordDO {
     }
 
     public void setChief(String chief) {
-        this.chief = chief == null ? null : chief.trim();
+        this.chief = chief;
     }
 
     public String getMedicalHistory() {
@@ -98,7 +90,7 @@ public class RecordDO {
     }
 
     public void setMedicalHistory(String medicalHistory) {
-        this.medicalHistory = medicalHistory == null ? null : medicalHistory.trim();
+        this.medicalHistory = medicalHistory;
     }
 
     public String getInfraBeforePath() {
@@ -106,7 +98,7 @@ public class RecordDO {
     }
 
     public void setInfraBeforePath(String infraBeforePath) {
-        this.infraBeforePath = infraBeforePath == null ? null : infraBeforePath.trim();
+        this.infraBeforePath = infraBeforePath;
     }
 
     public String getInfraAfterPath() {
@@ -114,7 +106,23 @@ public class RecordDO {
     }
 
     public void setInfraAfterPath(String infraAfterPath) {
-        this.infraAfterPath = infraAfterPath == null ? null : infraAfterPath.trim();
+        this.infraAfterPath = infraAfterPath;
+    }
+
+    public String getInfraBeforeTxtPath() {
+        return infraBeforeTxtPath;
+    }
+
+    public void setInfraBeforeTxtPath(String infraBeforeTxtPath) {
+        this.infraBeforeTxtPath = infraBeforeTxtPath;
+    }
+
+    public String getInfraAfterTxtPath() {
+        return infraAfterTxtPath;
+    }
+
+    public void setInfraAfterTxtPath(String infraAfterTxtPath) {
+        this.infraAfterTxtPath = infraAfterTxtPath;
     }
 
     public String getInfraBeforeDesc() {
@@ -122,7 +130,7 @@ public class RecordDO {
     }
 
     public void setInfraBeforeDesc(String infraBeforeDesc) {
-        this.infraBeforeDesc = infraBeforeDesc == null ? null : infraBeforeDesc.trim();
+        this.infraBeforeDesc = infraBeforeDesc;
     }
 
     public String getInfraAfterDesc() {
@@ -130,7 +138,7 @@ public class RecordDO {
     }
 
     public void setInfraAfterDesc(String infraAfterDesc) {
-        this.infraAfterDesc = infraAfterDesc == null ? null : infraAfterDesc.trim();
+        this.infraAfterDesc = infraAfterDesc;
     }
 
     public String getInfraBeforeExcp() {
@@ -138,7 +146,7 @@ public class RecordDO {
     }
 
     public void setInfraBeforeExcp(String infraBeforeExcp) {
-        this.infraBeforeExcp = infraBeforeExcp == null ? null : infraBeforeExcp.trim();
+        this.infraBeforeExcp = infraBeforeExcp;
     }
 
     public String getInfraAfterExcp() {
@@ -146,7 +154,7 @@ public class RecordDO {
     }
 
     public void setInfraAfterExcp(String infraAfterExcp) {
-        this.infraAfterExcp = infraAfterExcp == null ? null : infraAfterExcp.trim();
+        this.infraAfterExcp = infraAfterExcp;
     }
 
     public String getMedicationBefore() {
@@ -154,7 +162,7 @@ public class RecordDO {
     }
 
     public void setMedicationBefore(String medicationBefore) {
-        this.medicationBefore = medicationBefore == null ? null : medicationBefore.trim();
+        this.medicationBefore = medicationBefore;
     }
 
     public String getMedicationAfter() {
@@ -162,7 +170,7 @@ public class RecordDO {
     }
 
     public void setMedicationAfter(String medicationAfter) {
-        this.medicationAfter = medicationAfter == null ? null : medicationAfter.trim();
+        this.medicationAfter = medicationAfter;
     }
 
     public Date getTimeBefore() {
@@ -194,7 +202,7 @@ public class RecordDO {
     }
 
     public void setTreat(String treat) {
-        this.treat = treat == null ? null : treat.trim();
+        this.treat = treat;
     }
 
     public String getTreatDetail() {
@@ -202,7 +210,7 @@ public class RecordDO {
     }
 
     public void setTreatDetail(String treatDetail) {
-        this.treatDetail = treatDetail == null ? null : treatDetail.trim();
+        this.treatDetail = treatDetail;
     }
 
     public Integer getTreatCount() {
@@ -211,5 +219,37 @@ public class RecordDO {
 
     public void setTreatCount(Integer treatCount) {
         this.treatCount = treatCount;
+    }
+
+    public String getNeckAreaBefore() {
+        return neckAreaBefore;
+    }
+
+    public void setNeckAreaBefore(String neckAreaBefore) {
+        this.neckAreaBefore = neckAreaBefore;
+    }
+
+    public String getNeckAreaAfter() {
+        return neckAreaAfter;
+    }
+
+    public void setNeckAreaAfter(String neckAreaAfter) {
+        this.neckAreaAfter = neckAreaAfter;
+    }
+
+    public Integer getClassificationBefore() {
+        return classificationBefore;
+    }
+
+    public void setClassificationBefore(Integer classificationBefore) {
+        this.classificationBefore = classificationBefore;
+    }
+
+    public Integer getClassificationAfter() {
+        return classificationAfter;
+    }
+
+    public void setClassificationAfter(Integer classificationAfter) {
+        this.classificationAfter = classificationAfter;
     }
 }

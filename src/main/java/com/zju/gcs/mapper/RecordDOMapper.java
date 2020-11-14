@@ -1,5 +1,6 @@
 package com.zju.gcs.mapper;
 
+import com.zju.gcs.model.HistoryRecordDO;
 import com.zju.gcs.model.RecordDO;
 import com.zju.gcs.model.RecordDOExample;
 import java.util.List;
@@ -30,5 +31,5 @@ public interface RecordDOMapper {
 
     int updateByPrimaryKey(RecordDO record);
 
-    List<RecordDO> selectHistoryRecords(HistoryRecordsVO historyRecordsVO);
+    List<HistoryRecordDO> selectHistoryRecords(HistoryRecordsVO historyRecordsVO);
 }
